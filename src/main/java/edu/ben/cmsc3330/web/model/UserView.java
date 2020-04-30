@@ -1,6 +1,6 @@
 package edu.ben.cmsc3330.web.model;
 
-import edu.ben.cmsc3330.data.model.Address;
+import edu.ben.cmsc3330.data.model.Pilot;
 
 public class UserView {
 
@@ -8,5 +8,5 @@ public class UserView {
 
     private String lastName;
 
-    private Address address;
+    private Pilot address;
 }

@@ -16,27 +16,19 @@ import javax.persistence.Table;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "address")
-public class Address extends AbstractEntity {
+@Table(name = "destination")
+public class Destination extends AbstractEntity {
 
     @NotNull
-    @Column(name = "street")
-    private String street;
+    @Column(name = "airport")
+    private String airport;
 
-    @Column(name = "street2")
-    private String street2;
-
-    @Column(name = "street3")
-    private String street3;
-
+    @NotNull
     @Column(name = "city")
     private String city;
 
+    @NotNull
     @Column(name = "state")
     private String state;
-
-    @NotNull
-    @Column(name = "postal_code")
-    private String postalCode;
 
 }

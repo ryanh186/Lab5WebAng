@@ -4,7 +4,7 @@ spring:
     name: cmsc3330
   datasource:
     initialization-mode: NEVER
-    url: jdbc:mysql://localhost:3306/example2
+    url: jdbc:mysql://localhost:3306/cmsc330
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: Root

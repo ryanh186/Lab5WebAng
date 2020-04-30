@@ -1,6 +1,6 @@
 package edu.ben.cmsc3330.data.service;
 
-import edu.ben.cmsc3330.data.model.Address;
+import edu.ben.cmsc3330.data.model.Pilot;
 import edu.ben.cmsc3330.data.repository.AddressRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public Page<Address> searchAddresses(String query, Integer page, Integer limit) {
+    public Page<Pilot> searchAddresses(String query, Integer page, Integer limit) {
 //        boolean hasQuery = StringUtils.isNotEmpty(query);
         if (query != null && query.length() > 0) {
             return addressRepository.findByStreetContainingOrderByStreet(query, PageRequest.of(page, limit));
