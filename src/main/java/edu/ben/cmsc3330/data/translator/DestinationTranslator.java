@@ -7,7 +7,8 @@ public class DestinationTranslator {
 
     public static DestinationView entityToView(final Destination destination) {
         return DestinationView.builder()
-                .name(destination.getAirport())
+                .airport(destination.getAirport())
+                .city(destination.getCity())
                 .build();
     }
 }

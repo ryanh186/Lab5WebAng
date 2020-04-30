@@ -12,4 +12,7 @@ import lombok.*;
 public class DestinationView {
 
     private String airport;
+    private String city;
+    private String state;
+
 }

@@ -1,0 +1,77 @@
+Index: src/main/java/edu/ben/cmsc3330/data/basicfuntions/Inserts.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/edu/ben/cmsc3330/data/basicfuntions/Inserts.java	(date 1588222917674)
++++ src/main/java/edu/ben/cmsc3330/data/basicfuntions/Inserts.java	(date 1588222917674)
+@@ -0,0 +1,69 @@
++package edu.ben.cmsc3330.data.basicfuntions;
++
++import org.springframework.stereotype.Repository;
++
++import javax.persistence.EntityManager;
++import javax.persistence.PersistenceContext;
++import javax.transaction.Transactional;
++
++@Repository
++public class Inserts {
++
++    public Inserts(){
++    }
++
++    @PersistenceContext
++    private EntityManager entityManager;
++
++    @Transactional
++    public void insertDestination() {
++        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state) VALUES (?,?,?,?)")
++                .setParameter(1, "1111111")
++                .setParameter(2, "United")
++                .setParameter(3, "Chicago")
++                .setParameter(4, "IL")
++                .executeUpdate();
++    }
++
++    @Transactional
++    public void insertAirplane() {
++        entityManager.createNativeQuery("INSERT INTO destination" +
++                " (id, destination_id, head_pilot_id, capacity, model, company, crew_size) VALUES (?,?,?,?,?,?,?)")
++                .setParameter(1, "11111123")
++                .setParameter(2, "United")
++                .setParameter(3, "Chicago")
++                .setParameter(4, "IL")
++                .executeUpdate();
++    }
++
++    @Transactional
++    public void insertPassenger() {
++        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state) VALUES (?,?,?,?)")
++                .setParameter(1, "1111111")
++                .setParameter(2, "United")
++                .setParameter(3, "Chicago")
++                .setParameter(4, "IL")
++                .executeUpdate();
++    }
++
++    @Transactional
++    public void insertPilot() {
++        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state) VALUES (?,?,?,?)")
++                .setParameter(1, "1111111")
++                .setParameter(2, "United")
++                .setParameter(3, "Chicago")
++                .setParameter(4, "IL")
++                .executeUpdate();
++    }
++
++    @Transactional
++    public void insertTicket() {
++        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state) VALUES (?,?,?,?)")
++                .setParameter(1, "1111111")
++                .setParameter(2, "United")
++                .setParameter(3, "Chicago")
++                .setParameter(4, "IL")
++                .executeUpdate();
++    }
++
++}
