@@ -7,4 +7,4 @@ spring:
     url: jdbc:mysql://localhost:3306/cmsc330
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: Root
+    password: root

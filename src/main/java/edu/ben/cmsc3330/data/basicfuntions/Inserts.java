@@ -17,18 +17,21 @@ public class Inserts {
 
     @Transactional
     public void insertDestination() {
-        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state) VALUES (?,?,?,?)")
+        entityManager.createNativeQuery("INSERT INTO destination (id, airport, city, state, is_active, created_on, updated_on) VALUES (?,?,?,?,?,?,?)")
                 .setParameter(1, "1111111")
                 .setParameter(2, "United")
                 .setParameter(3, "Chicago")
                 .setParameter(4, "IL")
+                .setParameter(5, 1)
+                .setParameter(6, null)
+                .setParameter(7, null)
                 .executeUpdate();
     }
 
     @Transactional
     public void insertAirplane() {
         entityManager.createNativeQuery("INSERT INTO destination" +
-                " (id, destination_id, head_pilot_id, capacity, model, company, crew_size) VALUES (?,?,?,?,?,?,?)")
+                " (id, airport, city, state) VALUES (?,?,?,?)")
                 .setParameter(1, "11111123")
                 .setParameter(2, "United")
                 .setParameter(3, "Chicago")
