@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Lab 5 Airplane Management';
+
+  // foo() {
+  //   this.destinationService.getDestinationById(id)
+  //   .subscribe() {
+  //
+  //   }
+  // }
 }
