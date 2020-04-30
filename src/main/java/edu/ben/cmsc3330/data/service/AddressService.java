@@ -16,10 +16,10 @@ public class AddressService {
     }
 
     public Page<Pilot> searchAddresses(String query, Integer page, Integer limit) {
-//        boolean hasQuery = StringUtils.isNotEmpty(query);
-        if (query != null && query.length() > 0) {
-            return addressRepository.findByStreetContainingOrderByStreet(query, PageRequest.of(page, limit));
-        }
+ //        boolean hasQuery = StringUtils.isNotEmpty(query);
+            if (query != null && query.length() > 0) {
+                return addressRepository.findByStreetContainingOrderByStreet(query, PageRequest.of(page, limit));
+            }
         return null;
     }
 }

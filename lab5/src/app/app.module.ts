@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {RouterModule} from "@angular/router";
+import {RouterModule} from '@angular/router';
+import {DestinationModule} from './destination/destination.module';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {RouterModule} from "@angular/router";
   ],
   imports: [
     BrowserModule,
+    DestinationModule,
     RouterModule
   ],
   providers: [],

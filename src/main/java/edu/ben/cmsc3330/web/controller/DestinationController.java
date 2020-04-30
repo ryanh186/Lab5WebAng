@@ -4,13 +4,15 @@ package edu.ben.cmsc3330.web.controller;
 import edu.ben.cmsc3330.data.model.Destination;
 import edu.ben.cmsc3330.data.model.Pilot;
 import edu.ben.cmsc3330.data.repository.DestinationRepository;
+import edu.ben.cmsc3330.data.service.DestinationService;
 import edu.ben.cmsc3330.data.translator.DestinationTranslator;
 import edu.ben.cmsc3330.web.model.DestinationView;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 //import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -19,11 +21,14 @@ import java.util.Optional;
 @RestController
 public class DestinationController {
 
+    private final DestinationService destinationService;
     private final DestinationRepository destinationRepository;
 
 
-    public DestinationController(final DestinationRepository destinationRepository) {
+    public DestinationController(final DestinationRepository destinationRepository,
+                                 final DestinationService destinationService) {
         this.destinationRepository = destinationRepository;
+        this.destinationService = destinationService;
     }
 
     // /users
@@ -32,7 +37,7 @@ public class DestinationController {
     // GET, POST, PUT, DELETE
 
     @GetMapping(value = "/api/destination/{destinationId}")
-    public DestinationView viewDestination(@PathVariable Long destinationId) throws Exception {
+    public ResponseEntity<DestinationView> viewDestination(@PathVariable Long destinationId) throws Exception {
 
         // Retrieve the Destination object
         Optional<Destination> destinationOption = destinationRepository.findById(destinationId);
@@ -43,7 +48,21 @@ public class DestinationController {
             throw new Exception("Destination with id [" + destinationId + "] does not exist in DB");
         }
 
-        return DestinationTranslator.entityToView(destinationOption.get());
+        return new ResponseEntity<>(DestinationTranslator.entityToView(destinationOption.get()), HttpStatus.OK);
+    }
 
+    @PostMapping(value = "/api/destination")
+    public ResponseEntity<DestinationView> createDestination(@RequestBody DestinationView destinationView) {
+        Destination destination = new Destination();
+        destination.setAirport(destinationView.getAirport());
+        destination.setCity(destinationView.getCity());
+
+        destination.setActive(true);
+        //destination.setCreated(LocalDateTime.now());
+
+        // Save it
+        destinationRepository.save(destination);
+
+        return new ResponseEntity<>(DestinationTranslator.entityToView(destination), HttpStatus.CREATED);
     }
 }
