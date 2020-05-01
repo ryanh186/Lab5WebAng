@@ -9,6 +9,7 @@ public class DestinationTranslator {
         return DestinationView.builder()
                 .airport(destination.getAirport())
                 .city(destination.getCity())
+                .state(destination.getState())
                 .build();
     }
 }

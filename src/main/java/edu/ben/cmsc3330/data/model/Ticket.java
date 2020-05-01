@@ -29,7 +29,7 @@ public class Ticket extends AbstractEntity {
 
     @NotNull
     @Column(name = "seat_number")
-    private int firstName;
+    private int seatNumber;
 
     @NotNull
     @Column(name = "ticket_cost")

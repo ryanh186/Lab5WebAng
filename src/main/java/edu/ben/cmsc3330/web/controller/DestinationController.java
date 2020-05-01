@@ -1,11 +1,11 @@
 package edu.ben.cmsc3330.web.controller;
 
 
-import edu.ben.cmsc3330.data.model.Destination;
-import edu.ben.cmsc3330.data.model.Pilot;
+
 import edu.ben.cmsc3330.data.repository.DestinationRepository;
 import edu.ben.cmsc3330.data.service.DestinationService;
 import edu.ben.cmsc3330.data.translator.DestinationTranslator;
+import edu.ben.cmsc3330.data.model.Destination;
 import edu.ben.cmsc3330.web.model.DestinationView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -53,11 +53,13 @@ public class DestinationController {
 
     @PostMapping(value = "/api/destination")
     public ResponseEntity<DestinationView> createDestination(@RequestBody DestinationView destinationView) {
+
         Destination destination = new Destination();
         destination.setAirport(destinationView.getAirport());
         destination.setCity(destinationView.getCity());
+        destination.setState(destinationView.getState());
 
-        destination.setActive(true);
+        destination.setActive(1);
         //destination.setCreated(LocalDateTime.now());
 
         // Save it

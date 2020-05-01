@@ -23,7 +23,7 @@ public class AbstractEntity {
     private Long id;
 
     @Column(name = "is_active")
-    private boolean active;
+    private int active;
 
     @Column(name = "created_on")
     private String created;
