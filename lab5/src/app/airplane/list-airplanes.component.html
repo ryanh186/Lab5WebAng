@@ -1,0 +1,26 @@
+<h2>Airplane List</h2>
+<table>
+  <tr>
+    <th>AirplaneID</th>
+    <th>DestinationID</th>
+    <th>HeadPilotID</th>
+    <th>Capacity</th>
+    <th>Model</th>
+    <th>Company</th>
+    <th>CrewSize</th>
+
+  </tr >
+
+
+  <tr *ngFor="let airplane of airplanes">
+    <td>{{ airplane.AirplaneID }}</td>
+    <td>{{ airplane.DestinationID }}</td>
+    <td>{{ airplane.HeadPilotID }}</td>
+    <td>{{ airplane.Capacity }}</td>
+    <td>{{ airplane.Model }}</td>
+    <td>{{ airplane.Company }}</td>
+    <td>{{ airplane.CrewSize }}</td>
+  </tr>
+
+
+</table>
