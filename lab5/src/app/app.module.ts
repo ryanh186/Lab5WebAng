@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {RouterModule} from '@angular/router';
-import {DestinationModule} from './destination/destination.module';
 
 import { ListAirplanesComponent } from './airplane/list-airplanes.component';
 import { PassengerComponent } from './passenger/passenger.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { DestinationDetailComponent } from './destination-detail/destination-detail.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    DestinationModule,
     RouterModule.forRoot([
       { path: '', component: ListAirplanesComponent },
+      { path: 'destinations/:destinationId', component: DestinationDetailComponent },
     ])
   ],
   declarations: [
@@ -24,6 +24,7 @@ import { ProductListComponent } from './product-list/product-list.component';
     PassengerComponent,
     TopBarComponent,
     ProductListComponent,
+    DestinationDetailComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
