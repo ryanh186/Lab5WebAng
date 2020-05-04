@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 //import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -60,7 +61,9 @@ public class PassengerController {
         passenger.setLuggageAmount(passengerView.getLuggageAmount());
 
         passenger.setActive(1);
-        //destination.setCreated(LocalDateTime.now());
+
+        passenger.setCreated(LocalDateTime.now());
+        passenger.setUpdated(LocalDateTime.now());
 
         // Save it
         passengerRepository.save(passenger);

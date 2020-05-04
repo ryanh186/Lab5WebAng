@@ -1,7 +1,6 @@
 package edu.ben.cmsc3330.web.controller;
 
 
-
 import edu.ben.cmsc3330.data.repository.DestinationRepository;
 import edu.ben.cmsc3330.data.service.DestinationService;
 import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -55,14 +54,18 @@ public class DestinationController {
     public ResponseEntity<DestinationView> createDestination(@RequestBody DestinationView destinationView) {
 
         Destination destination = new Destination();
+
         destination.setAirport(destinationView.getAirport());
         destination.setCity(destinationView.getCity());
         destination.setState(destinationView.getState());
 
         destination.setActive(1);
-        //destination.setCreated(LocalDateTime.now());
+
+        destination.setCreated(LocalDateTime.now());
+        destination.setUpdated(LocalDateTime.now());
 
         // Save it
+
         destinationRepository.save(destination);
 
         return new ResponseEntity<>(DestinationTranslator.entityToView(destination), HttpStatus.CREATED);

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 //import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -59,7 +60,9 @@ public class TicketController {
         ticket.setTicketCost(ticketView.getTicketCost());
 
         ticket.setActive(1);
-        //destination.setCreated(LocalDateTime.now());
+
+        ticket.setCreated(LocalDateTime.now());
+        ticket.setUpdated(LocalDateTime.now());
 
         // Save it
         ticketRepository.save(ticket);

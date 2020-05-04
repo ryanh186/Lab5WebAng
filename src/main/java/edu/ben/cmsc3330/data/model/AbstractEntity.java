@@ -1,14 +1,12 @@
 package edu.ben.cmsc3330.data.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @EqualsAndHashCode
@@ -19,6 +17,7 @@ import javax.persistence.MappedSuperclass;
 public class AbstractEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -26,8 +25,8 @@ public class AbstractEntity {
     private int active;
 
     @Column(name = "created_on")
-    private String created;
+    private LocalDateTime created;
 
     @Column(name = "updated_on")
-    private String updated;
+    private LocalDateTime updated;
 }
