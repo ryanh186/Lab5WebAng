@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 //import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -53,15 +54,18 @@ public class PilotController {
     public ResponseEntity<PilotView> createDestination(@RequestBody PilotView pilotView) {
 
         Pilot pilot = new Pilot();
+
         pilot.setStreet(pilotView.getStreet());
         pilot.setFirstName(pilotView.getFirstName());
         pilot.setLastName(pilotView.getLastName());
 
-
         pilot.setActive(1);
-        //destination.setCreated(LocalDateTime.now());
+
+        pilot.setCreated(LocalDateTime.now());
+        pilot.setUpdated(LocalDateTime.now());
 
         // Save it
+
         pilotRepository.save(pilot);
 
         return new ResponseEntity<>(PilotTranslator.entityToView(pilot), HttpStatus.CREATED);
