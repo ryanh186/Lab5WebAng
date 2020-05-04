@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { destinations} from '../destination-detail/destinations';
+import {passengers} from '../passenger/passengers';
+
 
 @Component({
   selector: 'app-top-bar',
@@ -7,9 +9,11 @@ import { destinations} from '../destination-detail/destinations';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit {
-  destinations = destinations;
+
   title: 'Destinations';
   destinationId: any;
+  passengerId: any;
+  pilotsId: any;
   constructor() { }
 
   ngOnInit(): void {

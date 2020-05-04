@@ -1,0 +1,29 @@
+<h1>Pilots</h1>
+<h2>These are the pilots on file to date.</h2>
+
+<div >
+
+  <table>
+    <tr>
+      <th>PilotID</th>
+      <th>AirplaneID</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+
+
+
+    </tr >
+
+
+    <tr *ngFor="let pilot of pilots;">
+      <td>{{ pilot.PilotID}}</td>
+      <td>{{ pilot.AirplaneID }}</td>
+      <td>{{ pilot.FirstName}}</td>
+      <td>{{ pilot.LastName }}</td>
+
+    </tr>
+
+
+  </table>
+
+</div>

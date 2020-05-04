@@ -1,2 +1,32 @@
-<p>passenger works!</p>
+<h1>Passengers</h1>
+<h2>These are the passengers on file to date.</h2>
 
+<div >
+
+  <table>
+    <tr>
+      <th>PassengerID</th>
+      <th>TicketID</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>PhoneNumber</th>
+      <th>LuggageAmount</th>
+
+
+    </tr >
+
+
+    <tr *ngFor="let passenger of passengers;">
+      <td>{{ passenger.PassengerID}}</td>
+      <td>{{ passenger.TicketID }}</td>
+      <td>{{ passenger.FirstName}}</td>
+      <td>{{ passenger.LastName }}</td>
+      <td>{{ passenger.PhoneNumber }}</td>
+      <td>{{ passenger.LuggageAmount }}</td>
+
+    </tr>
+
+
+  </table>
+
+</div>

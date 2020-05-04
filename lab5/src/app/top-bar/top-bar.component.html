@@ -1,8 +1,8 @@
 <h1>LAB 5 DataBase </h1>
 
 <div  class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a [routerLink]="['/passengers']">Flights</a>
-  <a href="#contact">Pilots</a>
+  <a  href="#home">Home</a>
+  <a [routerLink]="['/passengers', passengerId]">Passengers</a>
+  <a [routerLink]="['/pilots', pilotsId]">Pilots</a>
   <a  [routerLink]="['/destinations', destinationId]">Destinations</a>
 </div>
