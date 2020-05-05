@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class DestinationController {
 
     private final DestinationService destinationService;
@@ -30,10 +31,7 @@ public class DestinationController {
         this.destinationService = destinationService;
     }
 
-    // /users
-    // /users/id
-
-    // GET, POST, PUT, DELETE
+    // GET, POST, PUT
 
     @GetMapping(value = "/api/destination/{destinationId}")
     public ResponseEntity<DestinationView> viewDestination(@PathVariable Long destinationId) throws Exception {
@@ -70,4 +68,38 @@ public class DestinationController {
 
         return new ResponseEntity<>(DestinationTranslator.entityToView(destination), HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/api/destination/{destinationId}")
+    public ResponseEntity<DestinationView> changeDestination(@PathVariable Long destinationId,
+                                                             @RequestBody DestinationView destinationView) throws Exception {
+
+        // Retrieve the Destination object
+        Optional<Destination> destinationOption = destinationRepository.findById(destinationId);
+
+        //Verify we actually got a good destination/destination id
+        if (destinationOption.isEmpty()) {
+            // log.error("Destination with id [{}] does not exist in DB", destinationId);
+            throw new Exception("Destination with id [" + destinationId + "] does not exist in DB");
+        }
+
+        Destination destination = new Destination();
+
+        destination.setId(destinationId);
+
+        destination.setAirport(destinationView.getAirport());
+        destination.setCity(destinationView.getCity());
+        destination.setState(destinationView.getState());
+
+        destination.setActive(1);
+
+        destination.setCreated(LocalDateTime.now());
+        destination.setUpdated(LocalDateTime.now());
+
+        // Save it
+
+        destinationRepository.save(destination);
+
+        return new ResponseEntity<>(DestinationTranslator.entityToView(destination), HttpStatus.CREATED);
+    }
+
 }

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-//import edu.ben.cmsc3330.data.translator.DestinationTranslator;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class TicketController {
 
     private final TicketService ticketService;
@@ -30,20 +30,15 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    // /users
-    // /users/id
-
-    // GET, POST, PUT, DELETE
-
     @GetMapping(value = "/api/ticket/{ticketId}")
     public ResponseEntity<TicketView> viewTicket(@PathVariable Long ticketId) throws Exception {
 
-        // Retrieve the Destination object
+        // Retrieve the Ticket object
         Optional<Ticket> ticketOption = ticketRepository.findById(ticketId);
 
-         //Verify we actually got a good destination/destination id
+        //Verify we actually got a good ticket id
         if (ticketOption.isEmpty()) {
-           // log.error("Destination with id [{}] does not exist in DB", destinationId);
+            // log.error("ticket with id [{}] does not exist in DB", ticketId);
             throw new Exception("Ticket with id [" + ticketId + "] does not exist in DB");
         }
 
@@ -54,6 +49,37 @@ public class TicketController {
     public ResponseEntity<TicketView> createTicket(@RequestBody TicketView ticketView) {
 
         Ticket ticket = new Ticket();
+        ticket.setPlaneID(ticketView.getPlaneID());
+        ticket.setPassengerID(ticketView.getPassengerID());
+        ticket.setSeatNumber(ticketView.getSeatNumber());
+        ticket.setTicketCost(ticketView.getTicketCost());
+
+        ticket.setActive(1);
+
+        ticket.setCreated(LocalDateTime.now());
+        ticket.setUpdated(LocalDateTime.now());
+
+        // Save it
+        ticketRepository.save(ticket);
+
+        return new ResponseEntity<>(TicketTranslator.entityToView(ticket), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/api/ticket/{ticketId}")
+    public ResponseEntity<TicketView> changeTicket(@PathVariable Long ticketId,
+                                                   @RequestBody TicketView ticketView) throws Exception {
+        // Retrieve the Ticket object
+        Optional<Ticket> ticketOption = ticketRepository.findById(ticketId);
+
+        //Verify we actually got a good ticket id
+        if (ticketOption.isEmpty()) {
+            // log.error("Ticket with id [{}] does not exist in DB", ticketId);
+            throw new Exception("Ticket with id [" + ticketId + "] does not exist in DB");
+        }
+
+        Ticket ticket = new Ticket();
+        ticket.setId(ticketId);
+
         ticket.setPlaneID(ticketView.getPlaneID());
         ticket.setPassengerID(ticketView.getPassengerID());
         ticket.setSeatNumber(ticketView.getSeatNumber());

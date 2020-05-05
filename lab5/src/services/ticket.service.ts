@@ -1,20 +1,22 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Ticket} from '../app/ticket/ticket';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Ticket } from '..model/Ticket';
 import {Observable} from 'rxjs';
 
-const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
+@Injectable()
 export class TicketService {
 
+  private ticketUrl: string;
+
   constructor(private http: HttpClient) {
+    this.ticketUrl = 'http://localhost:8080/api/ticket';
   }
 
-  getTicketById(id: number): Observable<Ticket> {
-    const url = 'http://localhost:8080/api/ticket';
-
-    return this.http.get<Ticket>(url);
+  public findAll(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(this.ticketUrl);
   }
 
-
-
+  public save(ticket: Ticket) {
+    return this.http.post<Ticket>(this.ticketUrl, ticket);
+  }
 }

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-//import edu.ben.cmsc3330.data.translator.DestinationTranslator;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class AirplaneController {
 
     private final AirplaneService airplaneService;
@@ -30,20 +30,15 @@ public class AirplaneController {
         this.airplaneService = airplaneService;
     }
 
-    // /users
-    // /users/id
-
-    // GET, POST, PUT, DELETE
-
     @GetMapping(value = "/api/airplane/{airplaneId}")
     public ResponseEntity<AirplaneView> viewAirplane(@PathVariable Long airplaneId) throws Exception {
 
-        // Retrieve the Destination object
+        // Retrieve the Airplane object
         Optional<Airplane> airplaneOption = airplaneRepository.findById(airplaneId);
 
-         //Verify we actually got a good destination/destination id
+        //Verify we actually got a good airplane id
         if (airplaneOption.isEmpty()) {
-           // log.error("Destination with id [{}] does not exist in DB", destinationId);
+            // log.error("Airplane with id [{}] does not exist in DB", airplaneId);
             throw new Exception("Airplane with id [" + airplaneId + "] does not exist in DB");
         }
 
@@ -54,6 +49,40 @@ public class AirplaneController {
     public ResponseEntity<AirplaneView> createAirplane(@RequestBody AirplaneView airplaneView) {
 
         Airplane airplane = new Airplane();
+        airplane.setDestinationID(airplaneView.getDestinationID());
+        airplane.setHeadPilotID(airplaneView.getHeadPilotID());
+        airplane.setCapacity(airplaneView.getCapacity());
+        airplane.setModel(airplaneView.getModel());
+        airplane.setCompany(airplaneView.getCompany());
+        airplane.setCrewSize(airplaneView.getCrewSize());
+
+        airplane.setActive(1);
+
+        airplane.setCreated(LocalDateTime.now());
+        airplane.setUpdated(LocalDateTime.now());
+
+        // Save it
+        airplaneRepository.save(airplane);
+
+        return new ResponseEntity<>(AirplaneTranslator.entityToView(airplane), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/api/airplane/{airplaneId}")
+    public ResponseEntity<AirplaneView> changeAirplane(@PathVariable Long airplaneId,
+                                                          @RequestBody AirplaneView airplaneView) throws Exception {
+        // Retrieve the airplane object
+        Optional<Airplane> airplaneOption = airplaneRepository.findById(airplaneId);
+
+        //Verify we actually got a good airplane id
+        if (airplaneOption.isEmpty()) {
+            // log.error("Airplane with id [{}] does not exist in DB", airplaneId);
+            throw new Exception("Airplane with id [" + airplaneId + "] does not exist in DB");
+        }
+
+        Airplane airplane = new Airplane();
+
+        airplane.setId(airplaneId);
+
         airplane.setDestinationID(airplaneView.getDestinationID());
         airplane.setHeadPilotID(airplaneView.getHeadPilotID());
         airplane.setCapacity(airplaneView.getCapacity());

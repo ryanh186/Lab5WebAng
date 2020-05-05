@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-//import edu.ben.cmsc3330.data.translator.DestinationTranslator;
-
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class PassengerController {
 
     private final PassengerService passengerService;
@@ -30,20 +29,15 @@ public class PassengerController {
         this.passengerService = passengerService;
     }
 
-    // /users
-    // /users/id
-
-    // GET, POST, PUT, DELETE
-
     @GetMapping(value = "/api/passenger/{passengerId}")
     public ResponseEntity<PassengerView> viewPassenger(@PathVariable Long passengerId) throws Exception {
 
-        // Retrieve the Destination object
+        // Retrieve the Passenger object
         Optional<Passenger> passengerOption = passengerRepository.findById(passengerId);
 
-         //Verify we actually got a good destination/destination id
+        //Verify we actually got a good passenger id
         if (passengerOption.isEmpty()) {
-           // log.error("Destination with id [{}] does not exist in DB", destinationId);
+            // log.error("Passenger with id [{}] does not exist in DB", passengerId);
             throw new Exception("Passenger with id [" + passengerId + "] does not exist in DB");
         }
 
@@ -54,6 +48,39 @@ public class PassengerController {
     public ResponseEntity<PassengerView> createPassenger(@RequestBody PassengerView passengerView) {
 
         Passenger passenger = new Passenger();
+        passenger.setTicketId(passengerView.getTicketId());
+        passenger.setFirstName(passengerView.getFirstName());
+        passenger.setLastName(passengerView.getLastName());
+        passengerView.setPhoneNumber(passengerView.getPhoneNumber());
+        passenger.setLuggageAmount(passengerView.getLuggageAmount());
+
+        passenger.setActive(1);
+
+        passenger.setCreated(LocalDateTime.now());
+        passenger.setUpdated(LocalDateTime.now());
+
+        // Save it
+        passengerRepository.save(passenger);
+
+        return new ResponseEntity<>(PassengerTranslator.entityToView(passenger), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/api/passenger/{passengerId}")
+    public ResponseEntity<PassengerView> changePassenger(@PathVariable Long passengerId,
+                                                         @RequestBody PassengerView passengerView) throws Exception {
+        // Retrieve the Passenger object
+        Optional<Passenger> passengerOption = passengerRepository.findById(passengerId);
+
+        //Verify we actually got a good passenger id
+        if (passengerOption.isEmpty()) {
+            // log.error("Passenger with id [{}] does not exist in DB", passengerId);
+            throw new Exception("Passenger with id [" + passengerId + "] does not exist in DB");
+        }
+
+        Passenger passenger = new Passenger();
+
+        passenger.setId(passengerId);
+
         passenger.setTicketId(passengerView.getTicketId());
         passenger.setFirstName(passengerView.getFirstName());
         passenger.setLastName(passengerView.getLastName());

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-//import edu.ben.cmsc3330.data.translator.DestinationTranslator;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class PilotController {
 
     private final PilotService pilotService;
@@ -30,20 +30,15 @@ public class PilotController {
         this.pilotService = pilotService;
     }
 
-    // /users
-    // /users/id
-
-    // GET, POST, PUT, DELETE
-
     @GetMapping(value = "/api/pilot/{pilotId}")
     public ResponseEntity<PilotView> viewPilot(@PathVariable Long pilotId) throws Exception {
 
-        // Retrieve the Destination object
+        // Retrieve the Pilot object
         Optional<Pilot> pilotOption = pilotRepository.findById(pilotId);
 
-         //Verify we actually got a good destination/destination id
+         //Verify we actually got a good pilot id
         if (pilotOption.isEmpty()) {
-           // log.error("Destination with id [{}] does not exist in DB", destinationId);
+           // log.error("Pilot with id [{}] does not exist in DB", pilotId);
             throw new Exception("Pilot with id [" + pilotId + "] does not exist in DB");
         }
 
@@ -69,5 +64,39 @@ public class PilotController {
         pilotRepository.save(pilot);
 
         return new ResponseEntity<>(PilotTranslator.entityToView(pilot), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/api/pilot/{pilotId}")
+    public ResponseEntity<PilotView> changePassenger(@PathVariable Long pilotId,
+                                                     @RequestBody PilotView pilotView) throws Exception {
+
+        // Retrieve the pilot object
+        Optional<Pilot> pilotOption = pilotRepository.findById(pilotId);
+
+        //Verify we actually got a good pilot id
+        if (pilotOption.isEmpty()) {
+            // log.error("Pilot with id [{}] does not exist in DB", pilotId);
+            throw new Exception("Pilot with id [" + pilotId + "] does not exist in DB");
+        }
+
+        Pilot pilot = new Pilot();
+
+        pilot.setId(pilotId);
+
+        pilot.setStreet(pilotView.getStreet());
+        pilot.setFirstName(pilotView.getFirstName());
+        pilot.setLastName(pilotView.getLastName());
+
+        pilot.setActive(1);
+
+        pilot.setCreated(LocalDateTime.now());
+        pilot.setUpdated(LocalDateTime.now());
+
+        // Save it
+
+        pilotRepository.save(pilot);
+
+        return new ResponseEntity<>(PilotTranslator.entityToView(pilot), HttpStatus.CREATED);
+
     }
 }
