@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Destination} from '../app/destination/destination';
 import {Observable} from 'rxjs';
@@ -14,7 +15,4 @@ export class DestinationService {
 
     return this.http.get<Destination>(url);
   }
-
-
-
 }
