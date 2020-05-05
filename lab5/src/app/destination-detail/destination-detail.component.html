@@ -1,1 +1,26 @@
-<p>destination-detail works!</p>
+
+<app-destination-form></app-destination-form>
+
+
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+      <thead>
+      <tr>
+        <th>Airport</th>
+        <th>City</th>
+        <th>State</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let destination of destinations">
+        <td>{{destination.airport}}</td>
+        <td>{{destination.city}}</td>
+        <td>{{destination.state}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

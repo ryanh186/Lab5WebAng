@@ -14,11 +14,7 @@
 
   <tr *ngFor="let airplane of airplanes;">
     <td>{{ airplane.AirplaneID }}</td>
-    <td *ngFor="let destination of destinations; index as destinationId">
-      <a [title]="destination.DestinationID " [routerLink]="['/destinations', destinationId]">
-        {{ airplane.DestinationID }}
-      </a>
-    </td>
+    <td >{{ airplane.DestinationID }}</td>
 
     <td>{{ airplane.HeadPilotID }}</td>
     <td>{{ airplane.Capacity }}</td>

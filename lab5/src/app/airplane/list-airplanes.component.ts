@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { airplanes } from './airplanes';
-import { destinations} from '../destination-detail/destinations';
+import {Destinations} from '../destination-form/destinations';
 
 @Component({
   selector: 'app-list-airplanes',
@@ -9,7 +9,7 @@ import { destinations} from '../destination-detail/destinations';
 })
 export class ListAirplanesComponent implements OnInit {
   airplanes = airplanes;
-  destinations = destinations;
+  destinations = Destinations;
   constructor() { }
 
   ngOnInit(): void {

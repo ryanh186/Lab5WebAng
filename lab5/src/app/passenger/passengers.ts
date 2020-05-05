@@ -1,3 +1,15 @@
+export class Passengers {
+  FirstName: string;
+  LastName: string;
+  PhoneNumber: string;
+
+  constructor(
+    FirstName: string,
+    LastName: string,
+    PhoneNumber: string,
+  ){}
+}
+
 export const passengers = [
   {
     PassengerID: 7202,
@@ -16,3 +28,6 @@ export const passengers = [
     LuggageAmount: 1
   }
 ];
+
+
+

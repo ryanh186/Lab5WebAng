@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Destinations} from '../destination-form/destinations';
+import {DestinationServiceService} from '../destination-service.service';
 
 @Component({
   selector: 'app-destination-detail',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./destination-detail.component.css']
 })
 export class DestinationDetailComponent implements OnInit {
+  destinations: any;
 
-  constructor() { }
+  constructor(private service: DestinationServiceService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    const resp = this.service.getDestinations();
+    resp.subscribe((data) => this.destinations = data);
   }
 
 }

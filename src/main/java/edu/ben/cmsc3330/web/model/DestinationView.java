@@ -11,8 +11,8 @@ import lombok.*;
 @ToString
 public class DestinationView {
 
-    private String airport;
-    private String city;
-    private String state;
+    public String airport;
+    public String city;
+    public String state;
 
 }

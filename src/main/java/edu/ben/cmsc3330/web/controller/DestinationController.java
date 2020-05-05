@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 //import edu.ben.cmsc3330.data.translator.DestinationTranslator;
@@ -33,6 +34,11 @@ public class DestinationController {
 
     // GET, POST, PUT
 
+    @GetMapping("/getAllDestinations")
+    public List<Destination> findAllDestinations() {
+        return destinationRepository.findAll();
+
+    }
     @GetMapping(value = "/api/destination/{destinationId}")
     public ResponseEntity<DestinationView> viewDestination(@PathVariable Long destinationId) throws Exception {
 
@@ -46,6 +52,12 @@ public class DestinationController {
         }
 
         return new ResponseEntity<>(DestinationTranslator.entityToView(destinationOption.get()), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/api/destinationTest")
+    public String register(@RequestBody Destination destination){
+        destinationRepository.save(destination);
+        return "YOU DID IT " + destination.getAirport();
     }
 
     @PostMapping(value = "/api/destination")
