@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Destination} from '../app/destination/destination';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Destination } from '..model/Destination';
 import {Observable} from 'rxjs';
 
-const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
+@Injectable()
 export class DestinationService {
 
+  private destinationUrl: string;
+
   constructor(private http: HttpClient) {
+    this.destinationUrl = 'http://localhost:8080/destination';
   }
 
-  getDestinationById(id: number): Observable<Destination> {
-    const url = 'http://localhost:8080/api/destination';
+  public findAll(): Observable<Destination[]> {
+    return this.http.get<Destination[]>(this.destinationUrl);
+  }
 
-    return this.http.get<Destination>(url);
+  public save(destination: Destination) {
+    return this.http.post<Destination>(this.destinationUrl, destination);
   }
 }
